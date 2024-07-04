@@ -4,7 +4,6 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <ctype.h>
 
 #define PORT 8084
 #define MAXLINE 1024
