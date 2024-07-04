@@ -4,7 +4,6 @@
 #include <string.h>
 #include <netinet/in.h>
 #include <unistd.h>
-#include <unistd.h>
 
 #define PORT 7070
 #define  MAX 1024
