@@ -27,7 +27,6 @@ void main()
 	bind(sockfd,(struct sockaddr *)&servaddr,sizeof(servaddr));
 	printf("Enter The Filename : "); // number_list.txt
 	scanf("%s",buffer);
-	l=sizeof(buffer);
 	sendto(sockfd,buffer,sizeof(buffer),0,(struct sockaddr*)&servaddr,sizeof(servaddr));
 	memset(buffer,MAX,0);
 	recvfrom(sockfd,buffer,sizeof(buffer),0,(struct sockaddr*)&servaddr,&len);	
