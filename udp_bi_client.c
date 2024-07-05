@@ -1,44 +1,39 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/socket.h>
-#include <string.h>
 #include <netinet/in.h>
 #include <unistd.h>
+#include <string.h>
 
-#define MAXLINE 1024
+#define MAX 1024
 #define PORT 8080
-
 
 void main()
 {
-	int sockfd;
-	struct sockaddr_in servaddr;
-	socklen_t len;
-	char buffer[MAXLINE];
-	
-	sockfd=socket(AF_INET,SOCK_DGRAM,0);
-	
-	servaddr.sin_family = AF_INET;
-	servaddr.sin_port = htons(PORT);
-	servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
-	
-	len=sizeof(servaddr);
-	
-	connect(sockfd,(struct sockaddr *)&servaddr,sizeof(servaddr));
+    	int sockfd,len;
+    	char send_msg[MAX],receive_msg[MAX];
+    	struct sockaddr_in servaddr;
+
+    	sockfd = socket(AF_INET, SOCK_DGRAM, 0);
+
+    	servaddr.sin_family = AF_INET;
+    	servaddr.sin_port = htons(PORT);
+    	servaddr.sin_addr.s_addr = INADDR_ANY;
+
+    	connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr));
+    	len = sizeof(servaddr);
 	
 	while(1)
 	{
 		printf("\nClient : ");
-		fgets(buffer,MAXLINE,stdin);
-		sendto(sockfd,buffer,sizeof(buffer),0,(struct sockaddr *)&servaddr,len);
-		memset(buffer,0,MAXLINE);
-		recvfrom(sockfd,buffer,MAXLINE,0,(struct sockaddr *)&servaddr,&len);
-		printf("\nServer :%s",buffer); 
-		if(strcmp(buffer,"bye\n")==0)
+		fgets(send_msg,MAX,stdin);
+		sendto(sockfd,send_msg,sizeof(send_msg),0,(struct sockaddr*)&servaddr,sizeof(servaddr));
+		recvfrom(sockfd,receive_msg,MAX,0,(struct sockaddr*)&servaddr,&len);
+		printf("\nServer : %s",receive_msg);
+		if((strcmp(send_msg,"bye\n")==0)||(strcmp(receive_msg,"bye\n")==0))
 		{
 			break;
 		}
 	}
+	
 	close(sockfd);
 }
-
