@@ -19,10 +19,10 @@ void readCostMatrix()
         {
             scanf("%d", &costMatrix[i][j]);
             // distance from X to X is 0
-            costMatrix[i][i] = 0;
             node[i].distance[j] = costMatrix[i][j]; 
             node[i].adjNodes[j] = j;
         }
+        costMatrix[i][i] = 0;
     }
 }
 
