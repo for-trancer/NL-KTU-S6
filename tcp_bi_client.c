@@ -4,8 +4,8 @@
 #include <unistd.h>
 #include <string.h>
 
-#define MAX 1024
-#define PORT 8080
+#define MAX 1024 
+#define PORT 8080 // Change Port Number If The Message Is Not Received By Server
 
 void main()
 {
