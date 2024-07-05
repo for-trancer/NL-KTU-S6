@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/socket.h>
 #include <string.h>
 #include <netinet/in.h>
 #include <unistd.h>
@@ -11,9 +10,8 @@
 
 void main()
 {
-	int sockfd;
-	struct sockaddr_in servaddr;
-	socklen_t len;
+	int sockfd,len;
+	struct sockaddr_in servaddr,cliaddr;
 	char buffer[MAXLINE];
 	
 	sockfd = socket(AF_INET,SOCK_DGRAM,0);
@@ -23,9 +21,9 @@ void main()
 	servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
 	
 	bind(sockfd,(struct sockaddr *)&servaddr,sizeof(servaddr));
-	len = sizeof(servaddr);
+	len = sizeof(cliaddr);
 	
-	recvfrom(sockfd,buffer,MAXLINE,0,(struct sockaddr *)&servaddr,&len);
+	recvfrom(sockfd,buffer,MAXLINE,0,(struct sockaddr *)&cliaddr,&len);
 	
 	printf("Client : %s",buffer);
 	
