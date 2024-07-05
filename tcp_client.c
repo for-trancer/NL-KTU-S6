@@ -5,7 +5,7 @@
 #include <netinet/in.h>
 #include <unistd.h>
 
-#define PORT 7070
+#define PORT 8080
 #define  MAX 1024
 
 void main()
@@ -15,8 +15,6 @@ void main()
 	char buffer[MAX];
 	
 	sockfd = socket(AF_INET,SOCK_STREAM,0);
-	
-	memset(&servaddr,0,sizeof(servaddr));
 	
 	servaddr.sin_family=AF_INET;
 	servaddr.sin_addr.s_addr=htonl(INADDR_ANY);
